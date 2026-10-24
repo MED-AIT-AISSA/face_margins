@@ -1,0 +1,37 @@
+PART 8. INTERPRETATION
+
+1. What does the angle between an embedding x and a class direction W represent?
+
+It shows how similar the face is to that person. A small angle means the face is very close to the class. A big angle means the face is different from the class.
+
+
+2. Why do we want embeddings from the same person to have a small angle with their class direction?
+
+Because then all the photos of one person stay close together. This way, small changes like light, pose or expression do not confuse the system. It can still say "this is the same person."
+
+
+3. Why do we want embeddings from different identities to be angularly separated?
+
+If two people are far apart, the system will not mix them up. Even if the photo is a bit noisy or the two people look similar, the system can still tell them apart.
+
+
+4. What is the purpose of introducing a margin during training?
+
+The margin makes training harder on purpose. The network cannot just win by a tiny difference. It must put each face closer to its own class and farther from the others. This makes the final embedding space cleaner and more reliable.
+
+
+5. For each method, identify the corresponding transformation.
+
+SphereFace: cos(m x theta)
+The angle is multiplied by m, so the correct class looks farther away than it really is.
+
+CosFace: cos(theta) - m
+We subtract a small number from the cosine score. The angle does not change.
+
+ArcFace: cos(theta + m)
+We add a small angle to theta before taking the cosine.
+
+
+6. Main difference between SphereFace, CosFace and ArcFace (one or two sentences)
+
+All three add a margin during training, but in different ways: SphereFace multiplies the angle, CosFace subtracts from the cosine, and ArcFace adds to the angle. ArcFace is the easiest to understand because its margin is always the same angle.
